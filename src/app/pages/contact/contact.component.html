@@ -1,0 +1,55 @@
+<div class="contact-container" [class.fade-in]="true">
+  <h1>Contacto</h1>
+  <p class="subtitle">Estamos aquí para ayudarte. Contáctanos.</p>
+  
+  <div class="success-message" *ngIf="showSuccess">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+      <polyline points="22,4 12,14.01 9,11.01"/>
+    </svg>
+    <span>Mensaje enviado correctamente. ¡Gracias por contactarnos!</span>
+  </div>
+  
+  <form class="contact-form" (submit)="onSubmit($event)" [class.slide-up]="true">
+    <div class="form-group" [class.error]="errors.name">
+      <label for="name">Nombre Completo</label>
+      <input type="text" id="name" name="name" placeholder="Tu nombre completo" 
+             [(ngModel)]="formData.name" 
+             (blur)="validateField('name', formData.name)"
+             [class.invalid]="errors.name">
+      <span class="error-text" *ngIf="errors.name">{{ errors.name }}</span>
+    </div>
+    
+    <div class="form-group" [class.error]="errors.email">
+      <label for="email">Correo Electrónico</label>
+      <input type="email" id="email" name="email" placeholder="tu@email.com" 
+             [(ngModel)]="formData.email"
+             (blur)="validateField('email', formData.email)"
+             [class.invalid]="errors.email">
+      <span class="error-text" *ngIf="errors.email">{{ errors.email }}</span>
+    </div>
+    
+    <div class="form-group" [class.error]="errors.phone">
+      <label for="phone">Teléfono</label>
+      <input type="tel" id="phone" name="phone" placeholder="+52 (55) 1234-5678" 
+             [(ngModel)]="formData.phone"
+             (blur)="formData.phone && validateField('phone', formData.phone)"
+             [class.invalid]="errors.phone">
+      <span class="error-text" *ngIf="errors.phone">{{ errors.phone }}</span>
+    </div>
+    
+    <div class="form-group" [class.error]="errors.comments">
+      <label for="comments">Comentarios</label>
+      <textarea id="comments" name="comments" rows="5" placeholder="¿En qué podemos ayudarte?" 
+                [(ngModel)]="formData.comments"
+                (blur)="validateField('comments', formData.comments)"
+                [class.invalid]="errors.comments"></textarea>
+      <span class="error-text" *ngIf="errors.comments">{{ errors.comments }}</span>
+    </div>
+    
+    <button type="submit" class="submit-button" [disabled]="isSubmitting">
+      <ng-container *ngIf="!isSubmitting">Enviar Mensaje</ng-container>
+      <ng-container *ngIf="isSubmitting"><span class="loader"></span></ng-container>
+    </button>
+  </form>
+</div>

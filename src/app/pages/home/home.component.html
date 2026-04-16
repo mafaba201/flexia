@@ -1,0 +1,96 @@
+<section class="hero" id="inicio">
+  <div class="particles">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-content">
+    <h1>{{ companyInfo.heroTitle }}</h1>
+    <p class="tagline">{{ companyInfo.heroSubtitle }}</p>
+    <button class="cta-button" routerLink="/contact">{{ companyInfo.heroCta }}</button>
+  </div>
+  <div class="hero-visual">
+    <img src="/assets/images/fluxia-logo.png" alt="AI" class="ai-icon">
+  </div>
+</section>
+
+<section class="services" id="servicios">
+  <h2>Nuestros Servicios</h2>
+  <div class="services-grid">
+    @for (service of companyInfo.services; track service.title) {
+    <div class="service-card" (click)="selectService(service)" [class.active]="selectedService === service">
+      <div class="service-icon">{{ service.icon }}</div>
+      <h3>{{ service.title }}</h3>
+      <p>{{ service.description }}</p>
+    </div>
+    }
+  </div>
+
+  @if (selectedService) {
+  <div class="service-details" id="service-details">
+    <div class="details-header">
+      <h3>{{ selectedService.title }}</h3>
+      <button class="details-close" (click)="closeModal()">&times;</button>
+    </div>
+    <p class="details-subtitle">{{ selectedService.details.subtitle }}</p>
+    <div class="details-features">
+      @for (feature of selectedService.details.features; track feature.title) {
+      <div class="details-feature">
+        <div class="feature-icon">✓</div>
+        <div class="feature-content">
+          <h4>{{ feature.title }}</h4>
+          <p>{{ feature.desc }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    @if (selectedService.details.benefits) {
+    <h4 class="benefits-title">Beneficios inmediatos:</h4>
+    <div class="details-benefits">
+      @for (benefit of selectedService.details.benefits; track benefit.title) {
+      <div class="benefit-card">
+        <div class="benefit-icon">★</div>
+        <div class="benefit-content">
+          <h4>{{ benefit.title }}</h4>
+          <p>{{ benefit.desc }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</section>
+
+<section class="contact" id="contacto">
+  <div class="contact-content">
+    <h2>Contáctanos</h2>
+    <p class="contact-subtitle">¿Listo para transformar tu negocio? Escríbenos y platiquemos sobre tu proyecto.</p>
+    <button class="cta-button" routerLink="/contact">Contáctanos</button>
+    <div class="contact-info">
+      <p><strong>Teléfono:</strong> <span class="contact-separator"></span>{{ companyInfo.contact.phone }}</p>
+      <p><strong>Dirección:</strong> <span class="contact-separator"></span>{{ companyInfo.contact.address }}</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>{{ companyInfo.name }}</h4>
+      <p>Software inteligente para desafíos reales.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Navegación</h4>
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-section">
+      <h4>Contacto</h4>
+      <a [href]="'mailto:' + companyInfo.contact.email">{{ companyInfo.contact.email }}</a>
+      <p>{{ companyInfo.contact.phone }}</p>
+      <p>{{ companyInfo.contact.address }}</p>
+    </div>
+  </div>
+  <p class="footer-copyright">&copy; 2026 {{ companyInfo.name }}. Todos los derechos reservados.</p>
+</footer>
