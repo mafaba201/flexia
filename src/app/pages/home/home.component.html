@@ -80,11 +80,12 @@
       <p>Software inteligente para desafíos reales.</p>
     </div>
     <div class="footer-section">
-      <h4>Navegación</h4>
-      <a href="#inicio">Inicio</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#contacto">Contacto</a>
+      <h4>Servicios</h4>
+      @for (service of companyInfo.services; track service.title) {
+        <p>{{ service.title }}</p>
+      }
     </div>
+
     <div class="footer-section">
       <h4>Contacto</h4>
       <a [href]="'mailto:' + companyInfo.contact.email">{{ companyInfo.contact.email }}</a>
