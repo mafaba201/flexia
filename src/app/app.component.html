@@ -23,4 +23,7 @@
     </div>
   </ng-template>
 </nav>
+@if (menuOpen) {
+<div class="menu-overlay" (click)="closeMenu()"></div>
+}
 <router-outlet />
