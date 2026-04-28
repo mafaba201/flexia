@@ -6,8 +6,241 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+  <style>
+    :root {
+      --chat--color--primary: #a855f7;
+      --chat--color--primary-shade-50: #9333ea;
+      --chat--color--primary--shade-100: #7e22ce;
+      --chat--color--secondary: #22d3ee;
+      --chat--color-secondary-shade-50: #0891b2;
+      --chat--color-white: #f1f5f9;
+      --chat--color-light: #1e293b;
+      --chat--color-light-shade-50: #334155;
+      --chat--color-light-shade-100: #475569;
+      --chat--color-medium: #94a3b8;
+      --chat--color-dark: #020617;
+      --chat--color-disabled: #1e293b;
+      --chat--color-typing: #94a3b8;
+      --chat--spacing: 1rem;
+      --chat--border-radius: 0.8rem;
+      --chat--transition-duration: 0.25s;
+      --chat--window--width: 400px;
+      --chat--window--height: 600px;
+      --chat--window--background: var(--chat--color-dark);
+      --chat--window--border: 1px solid #334155;
+      --chat--window--border-radius: 1.25rem;
+      --chat--header--padding: 1.25rem;
+      --chat--header--background: #0f172a;
+      --chat--header--color: #e2e8f0;
+      --chat--header--border-bottom: 1px solid #1e293b;
+      --chat--heading--font-size: 1.2rem;
+      --chat--message--font-size: 0.95rem;
+      --chat--message--bot--background: #1e293b;
+      --chat--message--bot--color: #e2e8f0;
+      --chat--message--bot--border: 1px solid #334155;
+      --chat--message--user--background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+      --chat--message--user--color: var(--chat--color-white);
+      --chat--input--background: #0f172a;
+      --chat--input--text-color: #f8fafc;
+      --chat--input--border-top: 1px solid rgba(30, 41, 59, 0.3);
+      --chat--input--placeholder--font-size: 0.9rem;
+      --chat--toggle--background: #a855f7;
+      --chat--toggle--shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+      --chat--body--background: #020617;
+      --chat--footer--background: #0f172a;
+    }
+    
+.chat-window {
+      background: rgba(2, 6, 23, 0.8) !important;
+      backdrop-filter: blur(20px);
+      border: var(--chat--window--border) !important;
+      border-radius: var(--chat--window--border-radius) !important;
+      width: var(--chat--window--width) !important;
+      height: var(--chat--window--height) !important;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 80px rgba(168, 85, 247, 0.1) !important;
+    }
+    .chat-header {
+      background: rgba(15, 23, 42, 0.8) !important;
+      backdrop-filter: blur(15px);
+      padding: var(--chat--header--padding) !important;
+      border-bottom: var(--chat--header--border-bottom) !important;
+      border-radius: var(--chat--window--border-radius) var(--chat--window--border-radius) 0 0 !important;
+    }
+    .chat-messages {
+      background: rgba(2, 6, 23, 0.8) !important;
+      backdrop-filter: blur(10px);
+    }
+    .chat-input-container {
+      background: rgba(15, 23, 42, 0.8) !important;
+      backdrop-filter: blur(15px);
+      border-top: var(--chat--input--border-top) !important;
+    }
+    .chat-header {
+      background: rgba(15, 23, 42, 0.9) !important;
+      backdrop-filter: blur(15px);
+      padding: var(--chat--header--padding) !important;
+      border-bottom: var(--chat--header--border-bottom) !important;
+      border-radius: var(--chat--window--border-radius) var(--chat--window--border-radius) 0 0 !important;
+    }
+    .chat-messages {
+      background: rgba(2, 6, 23, 0.7) !important;
+      backdrop-filter: blur(10px);
+    }
+    .chat-header {
+      background: var(--chat--header--background) !important;
+      padding: var(--chat--header--padding) !important;
+      border-bottom: var(--chat--header--border-bottom) !important;
+      border-radius: var(--chat--window--border-radius) var(--chat--window--border-radius) 0 0 !important;
+    }
+    .chat-header-title {
+      color: var(--chat--header--color) !important;
+      font-size: var(--chat--heading--font-size) !important;
+    }
+    .chat-messages {
+      background: var(--chat--body--background) !important;
+    }
+    .chat-message {
+      max-width: 80%;
+      margin-bottom: 12px;
+      font-size: var(--chat--message--font-size) !important;
+    }
+    .chat-message-user {
+      background: var(--chat--message--user--background) !important;
+      color: var(--chat--message--user--color) !important;
+      border-radius: 18px 18px 4px 18px !important;
+    }
+    .chat-message-bot {
+      background: var(--chat--message--bot--background) !important;
+      color: var(--chat--message--bot--color) !important;
+      border: var(--chat--message--bot--border) !important;
+      border-radius: 18px 18px 18px 4px !important;
+    }
+    .chat-input-container {
+      background: rgba(15, 23, 42, 0.85) !important;
+      backdrop-filter: blur(15px);
+      border-top: var(--chat--input--border-top) !important;
+    }
+    .chat-input {
+      background: var(--chat--input--background) !important;
+      color: var(--chat--input--text-color) !important;
+      border-radius: var(--chat--border-radius) !important;
+    }
+    .chat-input::placeholder {
+      font-size: var(--chat--input--placeholder--font-size) !important;
+      color: var(--chat--color-medium) !important;
+    }
+    .chat-toggle-button {
+      background: var(--chat--toggle--background) !important;
+      box-shadow: var(--chat--toggle--shadow) !important;
+    }
+    .chat-close-button {
+      background: transparent !important;
+    }
+    .chat-send-button {
+      background: var(--chat--color--primary) !important;
+    }
+    
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #020617;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .chat-window {
+        width: 100vw !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        bottom: 0 !important;
+        right: 0 !important;
+      }
+
+      .chat-header {
+        border-radius: 0 !important;
+        padding: 1rem !important;
+      }
+
+      .chat-header-title {
+        font-size: 1rem !important;
+      }
+
+      .chat-messages {
+        height: calc(100vh - 130px) !important;
+      }
+
+      .chat-message {
+        max-width: 85%;
+        font-size: 0.9rem !important;
+      }
+
+      .chat-toggle-button {
+        right: 16px !important;
+        bottom: 16px !important;
+        width: 56px !important;
+        height: 56px !important;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .chat-header-title {
+        font-size: 0.9rem !important;
+      }
+
+      .chat-message {
+        max-width: 90%;
+        font-size: 0.85rem !important;
+      }
+
+      .chat-header p {
+        font-size: 0.75rem !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>
+  <script type="module">
+    import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+    createChat({
+      webhookUrl: 'https://crouch-deliverer-tamale.ngrok-free.dev/webhook/2a71dc2c-7e49-4f78-956b-3c94d9f67508/chat',
+      initialMessages: [
+          '¡Hola! 👋',
+          'Soy Flux tu asistente. ¿En qué puedo ayudarte hoy?'
+      ],
+      title: 'Flux - Asistente IA',
+      subtitle: '¿En qué puedo ayudarte?',
+      inputPlaceholder: 'Escribe tu mensaje...',
+      closeWindowTitle: 'Cerrar chat',
+      sendButtonText: 'Enviar',
+      sendAriaLabel: 'Enviar mensaje',
+      closeAriaLabel: 'Cerrar ventana',
+      toggleAriaLabel: 'Abrir chat',   
+      i18n: {
+        en: {
+          title: 'Flux - Asistente IA',
+          subtitle: '¿En qué puedo ayudarte?',
+          inputPlaceholder: 'Escribe tu mensaje...',
+          closeWindowTitle: 'Cerrar chat',
+          sendButtonText: 'Enviar',
+          sendAriaLabel: 'Enviar mensaje',
+          closeAriaLabel: 'Cerrar ventana',
+          toggleAriaLabel: 'Abrir chat',
+          initialMessages: [
+            '¡Hola! 👋',
+            'Soy Flux. ¿En qué puedo ayudarte hoy?'
+          ]
+          
+        }
+      }
+    });
+  </script>
 </body>
 </html>
